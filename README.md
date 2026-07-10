@@ -11,8 +11,8 @@ institute-issued rule or a widely reported one.
 <img width="1518" height="887" alt="image" src="https://github.com/user-attachments/assets/77438e58-6d6b-4e3a-ac10-ef8e7d084ba0" />
 
 
-**Live demo:** mygradesync.vercel.app
-
+**Live demo:**[ mygradesync.vercel.app
+](https://mygradesync.vercel.app/)
 ## Features
 
 - **Bidirectional converter** — CGPA → percentage and percentage → CGPA, for 27 institutions across IITs, NITs, state universities, and private universities.
