@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GradeSync — CGPA to Percentage Conversion Registry</title>
+<meta name="description" content="Convert CGPA to percentage and back using the formula each institution actually uses, with confidence ratings and a way to verify or report the rule that applies to you." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="gardesync_logo.png">
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body id="top">
+
+<a class="skip-link" href="#converter">Skip to converter</a>
+
+<!-- ============================== HEADER ============================== -->
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="#top" class="brand" >
+      <!-- <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" width="34" height="34">
+          <circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <circle cx="20" cy="20" r="14.5" fill="none" stroke="currentColor" stroke-width="0.6"/>
+          <text x="20" y="25" text-anchor="middle" font-family="'Source Serif 4', serif" font-size="14" fill="currentColor">GS</text>
+        </svg>
+      </span> -->
+      
+      <span class="brand-mark" aria-hidden="true">
+  <img src="gardesync_logo.png" alt="" width="34" height="34" />
+</span>
+      
+      <span class="brand-text">
+        <span class="brand-name">GradeSync</span>
+        <span class="brand-tag">Grade Conversion Registry</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#converter">Converter</a>
+      <a href="#compare">Compare</a>
+      <a href="#reference">Grade scale</a>
+      <a href="#verify">Verify a formula</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <a class="nav-cta" href="#converter">Open converter</a>
+  </div>
+</header>
+
+<!-- =============================== HERO ================================ -->
+<section class="hero">
+  <div class="hero-texture" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Built for Indian higher education · 30+ institutions on record</p>
+    <h1>Every institution grades on its own scale.<br>Your percentage shouldn't be a guess.</h1>
+    <p class="hero-lede">
+      GradeSync converts CGPA to percentage and back — using the specific formula
+      published or consistently reported by each institution, instead of a single
+      blanket multiplier. Every result comes with the working shown and a confidence
+      rating, so you can check it against your own transcript before you use it.
+    </p>
+    <div class="hero-actions">
+      <a href="#converter" class="btn btn-primary">Convert my CGPA</a>
+      <a href="#verify" class="btn btn-ghost">How verification works</a>
+    </div>
+
+    <dl class="hero-stats">
+      <div><dt>30+</dt><dd>Institutions on record</dd></div>
+      <div><dt>8</dt><dd>Formula variants tracked</dd></div>
+      <div><dt>2</dt><dd>Confidence tiers, shown on every result</dd></div>
+    </dl>
+  </div>
+</section>
+
+<main>
+
+<!-- ============================ CONVERTER =============================== -->
+<section id="converter" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow eyebrow-dark">Step 1</p>
+      <h2>Run a conversion</h2>
+      <p class="section-lede">Pick your institution, choose a direction, and enter your figure. The certificate below shows exactly how the number was reached.</p>
+    </div>
+
+    <div class="certificate">
+      <div class="certificate-corner tl" aria-hidden="true"></div>
+      <div class="certificate-corner tr" aria-hidden="true"></div>
+      <div class="certificate-corner bl" aria-hidden="true"></div>
+      <div class="certificate-corner br" aria-hidden="true"></div>
+
+      <div class="certificate-head">
+        <span class="certificate-kicker">Conversion Certificate</span>
+        <span class="certificate-no" id="certNumber">No. 000000</span>
+      </div>
+
+      <form class="converter-form" id="converterForm" novalidate>
+
+        <div class="field">
+          <label for="uniSearch">Institution</label>
+          <div class="combobox" id="combobox">
+            <input
+              type="text"
+              id="uniSearch"
+              placeholder="Start typing — e.g. “NIT Durgapur” or “IIT”"
+              autocomplete="off"
+              role="combobox"
+              aria-expanded="false"
+              aria-controls="uniList"
+              aria-autocomplete="list"
+            />
+            <input type="hidden" id="uniId" />
+            <ul class="combobox-list" id="uniList" role="listbox" hidden></ul>
+          </div>
+          <p class="field-hint" id="uniHint">No institution selected yet.</p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <span class="field-label-static">Direction</span>
+            <div class="segmented" role="radiogroup" aria-label="Conversion direction">
+              <button type="button" class="segment is-active" data-direction="toPercent" role="radio" aria-checked="true">
+                CGPA → Percentage
+              </button>
+              <button type="button" class="segment" data-direction="toCgpa" role="radio" aria-checked="false">
+                Percentage → CGPA
+              </button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="inputValue" id="inputValueLabel">CGPA (0 – 10)</label>
+            <input type="number" id="inputValue" step="0.01" min="0" max="10" placeholder="e.g. 8.20" inputmode="decimal" />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="convertBtn">Convert</button>
+          <button type="button" class="btn btn-outline" id="clearBtn">Clear</button>
+        </div>
+      </form>
+
+      <div class="result" id="result" hidden>
+        <div class="result-top">
+          <div>
+            <p class="result-label" id="resultLabel">Percentage</p>
+            <p class="result-value" id="resultValue">—</p>
+          </div>
+          <span class="stamp" id="confidenceStamp" data-tier="official">
+            <svg viewBox="0 0 60 60" width="52" height="52" aria-hidden="true">
+              <circle cx="30" cy="30" r="27" fill="none" stroke="currentColor" stroke-width="1.4"/>
+              <circle cx="30" cy="30" r="23" fill="none" stroke="currentColor" stroke-width="0.7" stroke-dasharray="1.5 2.5"/>
+              <text x="30" y="27" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="7" letter-spacing="0.5" fill="currentColor" id="stampWord1">VERIFIED</text>
+              <text x="30" y="37" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="6" letter-spacing="0.5" fill="currentColor" id="stampWord2">OFFICIAL</text>
+            </svg>
+          </span>
+        </div>
+
+        <p class="result-formula" id="resultFormula">—</p>
+        <p class="result-note" id="resultNote"></p>
+
+        <div class="result-actions">
+          <button type="button" class="link-btn" id="copyBtn">Copy result</button>
+          <button type="button" class="link-btn" id="verifyToggle" aria-expanded="false" aria-controls="verifyPanel">
+            View verification details
+          </button>
+        </div>
+
+        <div class="verify-panel" id="verifyPanel" hidden>
+          <h3>How this formula was recorded</h3>
+          <p id="verifySource">—</p>
+          <p class="verify-caution">
+            Formulas can change between academic regulations, batches and even
+            departments within the same institution. Treat this as a strong
+            starting point, not a substitute for your registrar's confirmation.
+          </p>
+          <a class="link-btn" href="#verify">Read the full verification checklist ↓</a>
+        </div>
+      </div>
+
+      <p class="form-error" id="formError" role="alert" hidden></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= COMPARE ================================ -->
+<section id="compare" class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow eyebrow-dark">Step 2 — optional</p>
+      <h2>See the same CGPA across institutions</h2>
+      <p class="section-lede">Useful for cross-institutional applications, scholarship forms or simply understanding how much the multiplier alone can change your reported percentage.</p>
+    </div>
+
+    <div class="compare-controls">
+      <label for="compareCgpa">CGPA to compare</label>
+      <input type="number" id="compareCgpa" step="0.01" min="0" max="10" placeholder="e.g. 8.20" inputmode="decimal" />
+      <span class="compare-hint">Table updates as you type.</span>
+    </div>
+
+    <div class="table-wrap">
+      <table class="compare-table" id="compareTable">
+        <thead>
+          <tr>
+            <th data-sort="name">Institution <span aria-hidden="true">↕</span></th>
+            <th data-sort="formula">Formula</th>
+            <th data-sort="pct" class="num">Percentage <span aria-hidden="true">↕</span></th>
+            <th>Confidence</th>
+          </tr>
+        </thead>
+        <tbody id="compareBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ REFERENCE =============================== -->
+<section id="reference" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow eyebrow-dark">Reference</p>
+      <h2>The absolute 10-point grade scale</h2>
+      <p class="section-lede">The base scale most Indian institutions build their own grading on. Several institutes grade on a relative curve instead — check your regulations if your grade doesn't map cleanly here.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="ledger-table" id="gradeTable">
+        <thead>
+          <tr><th>Letter grade</th><th class="num">Grade point</th><th>Marks band</th><th>Descriptor</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== VERIFY ================================= -->
+<section id="verify" class="section section-dark">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Cross-checking</p>
+      <h2>Verify the rule used for your institution</h2>
+      <p class="section-lede">Every entry in this registry carries one of two confidence tiers. Understand what each means before you rely on a result.</p>
+    </div>
+
+    <div class="tier-grid">
+      <div class="tier-card">
+        <span class="stamp stamp-static" data-tier="official">
+          <svg viewBox="0 0 60 60" width="46" height="46" aria-hidden="true">
+            <circle cx="30" cy="30" r="27" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <circle cx="30" cy="30" r="23" fill="none" stroke="currentColor" stroke-width="0.7" stroke-dasharray="1.5 2.5"/>
+            <text x="30" y="27" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="7" fill="currentColor">VERIFIED</text>
+            <text x="30" y="37" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="6" fill="currentColor">OFFICIAL</text>
+          </svg>
+        </span>
+        <h3>Official</h3>
+        <p>The institution has issued a written circular, transcript remark or conversion certificate stating this exact formula. Highest confidence, still worth a personal check if the result is going somewhere high-stakes.</p>
+      </div>
+
+      <div class="tier-card">
+        <span class="stamp stamp-static" data-tier="reported">
+          <svg viewBox="0 0 60 60" width="46" height="46" aria-hidden="true">
+            <circle cx="30" cy="30" r="27" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <circle cx="30" cy="30" r="23" fill="none" stroke="currentColor" stroke-width="0.7" stroke-dasharray="1.5 2.5"/>
+            <text x="30" y="27" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="6.5" fill="currentColor">WIDELY</text>
+            <text x="30" y="37" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="6" fill="currentColor">REPORTED</text>
+          </svg>
+        </span>
+        <h3>Widely reported</h3>
+        <p>Consistently used by the institution's own students, alumni and affiliated colleges but not sourced here from a single public circular. Treat as a strong estimate and confirm locally.</p>
+      </div>
+    </div>
+
+    <div class="checklist-card">
+      <h3>Three ways to confirm the formula that applies to you</h3>
+      <ol class="checklist">
+        <li><strong>Read your grade card footer.</strong> Many institutes print the conversion formula or a percentage equivalent, directly on the semester grade card or final transcript.</li>
+        <li><strong>Check the examination regulations.</strong> Your institute's academic ordinance or examination handbook — usually on the registrar's or COE's page, is the authoritative source.</li>
+        <li><strong>Ask the examination section directly.</strong> A short email to the controller of examinations asking for a "CGPA to percentage equivalence certificate" is standard practice and usually answered within a few working days.</li>
+      </ol>
+
+      <div class="report-box">
+        <p><strong>Found a formula that doesn't match your institution?</strong> Send the correction and we'll review it.</p>
+        <a class="btn btn-outline btn-on-dark" id="reportLink" href="#">Report an incorrect formula</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ FAQ =================================== -->
+<section id="faq" class="section">
+  <div class="wrap wrap-narrow">
+    <div class="section-head">
+      <p class="eyebrow eyebrow-dark">Questions</p>
+      <h2>Frequently asked</h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Why do institutions use different formulas at all?</summary>
+        <p>There's no single UGC-mandated CGPA-to-percentage formula for higher education in India. Each university's academic council sets its own conversion when it adopts a 10-point scale, usually to keep results roughly consistent with the percentage-based system it replaced. The result is a patchwork: some use a flat ×10, others subtract an offset first, and a few use a different multiplier entirely.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Which formula should I use on a job or higher-education application?</summary>
+        <p>Use the one your institution has actually issued to you — check your grade card or transcript first. If the form asks for a self-reported percentage and your transcript already states one, use that figure rather than recalculating it, since it's the number your institution will confirm if asked.</p>
+      </details>
+      <details class="faq-item">
+        <summary>My institution isn't on this list — what should I do?</summary>
+        <p>Use the report link in the verification section to send us the name and, if you have it, the formula. In the meantime, most institutions on a 10-point absolute scale that haven't published their own rule default to a straightforward CGPA × 10, but confirm with your examination section before relying on it.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Why does the same CGPA give a different percentage in the comparison table?</summary>
+        <p>Because the multiplier and whether an offset is subtracted first, genuinely differs by institution. An 8.0 CGPA is 80% under a flat ×10 rule but only 76% under IIT Madras's ×9.5 rule and 75% under a (CGPA − 0.5) × 10 rule. None of these is "wrong" — they're just different conventions.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I trust the "widely reported" entries?</summary>
+        <p>They're a reliable starting estimate built from consistent patterns across an institution's own students and affiliated colleges, but they haven't been matched against a single official circular in this registry. For anything high-stakes — an admission or a job offer — verify against your own transcript first.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================== FOOTER ================================= -->
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <span class="brand-name footer-brand">GradeSync</span>
+      <p class="footer-note">A grade conversion registry for Indian higher education. Formulas are collected from institutional documentation and student verified reports — Always confirm against your own transcript before relying on a result.</p>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/amit-mndal" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/amit-mndal/">Contact</a>
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <!-- <span>Built by Amit Mandal</span> -->
+    <span id="year" ></span></span> Amit Mandal.</span>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
