@@ -8,6 +8,7 @@ working, and rates each formula's confidence so you know whether it's an
 institute-issued rule or a widely reported one.
 
 
+
 <img width="1518" height="887" alt="image" src="https://github.com/user-attachments/assets/77438e58-6d6b-4e3a-ac10-ef8e7d084ba0" />
 
 
