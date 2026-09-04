@@ -19,9 +19,13 @@
   --brick:      #8C382E;
   --brick-bg:   #F6E7E3;
 
-  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  /* --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --sans:  "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
-  --mono:  "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  --mono:  "IBM Plex Mono", "SFMono-Regular", Consolas, monospace; */
+
+  --serif: "Times New Roman", Times, serif;
+  --sans:  "Times New Roman", Times, serif;
+  --mono:  "Times New Roman", Times, serif;
 
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -33,7 +37,8 @@ html{ scroll-behavior: smooth; }
 
 body{
   margin: 0;
-  font-family: var(--sans);
+  /* font-family: var(--sans); */
+  font-family: "Times New Roman", Times, serif;
   color: var(--text);
   background: var(--paper);
   -webkit-font-smoothing: antialiased;
